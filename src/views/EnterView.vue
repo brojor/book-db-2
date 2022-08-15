@@ -9,13 +9,20 @@
         placeholder="Password"
       />
       <button type="submit">Submit</button>
+      <label for="remember-me">Remember me</label>
+      <input
+        type="checkbox"
+        id="remember-me"
+        v-model="rememberMe"
+        :disabled="credentials.email === ''"
+      />
     </form>
   </div>
 </template>
 
 <script setup lang="ts">
 import { useUserStore } from "@/stores/user";
-import { reactive } from "vue";
+import { reactive, ref } from "vue";
 import { useRouter } from "vue-router";
 import apiService from "@/services/api";
 
@@ -31,12 +38,13 @@ const credentials = reactive<Credentials>({
   email: "",
   password: "",
 });
+const rememberMe = ref<boolean>(false);
 
 const handleSubmit = async () => {
   try {
     const response = await apiService.post("/register", credentials);
     const token = response.data.token;
-    user.setToken(token);
+    user.setToken(token, { rememberMe: rememberMe.value });
     router.push("/");
   } catch (error) {
     console.error(error);
