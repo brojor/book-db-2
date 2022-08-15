@@ -1,27 +1,70 @@
 <template>
-  <div>
-    <h1>This is enter page</h1>
-    <p v-if="showValidationErrors && !emailIsValid">
-      Zadejte prosím platný email
-    </p>
-    <p v-if="showValidationErrors && !passwordIsValid">
-      Heslo musí mít alespoň 8 znaků
+  <div bg="$color-background-soft" w-full h-screen p-6 flex="~ col">
+    <h1 font="bold" text-2xl text-center>Vítejte v databázi knih</h1>
+    <p text-center m="y-3 x-auto" w="5/6">
+      Na místě, kde máte o své sbírce knih dokonalý přehled.
     </p>
     <form @submit.prevent="handleSubmit">
-      <input type="text" v-model="credentials.email" placeholder="Email" />
-      <input
-        type="password"
-        v-model="credentials.password"
-        placeholder="Password"
-      />
-      <button type="submit">Submit</button>
-      <label for="remember-me">Remember me</label>
-      <input
-        type="checkbox"
-        id="remember-me"
-        v-model="rememberMe"
-        :disabled="credentials.email === ''"
-      />
+      <div flex="~ col" mb3>
+        <label for="email-input" font-bold>Email</label>
+
+        <input
+          id="email-input"
+          type="text"
+          v-model="credentials.email"
+          p3
+          rounded
+          my1
+          border="1px solid $color-border"
+        />
+        <small
+          text="red center"
+          m="t--1"
+          v-if="showValidationErrors && !emailIsValid"
+        >
+          Zadejte prosím platný email
+        </small>
+      </div>
+      <div flex="~ col" mb3>
+        <label for="password-input" font-bold>Heslo</label>
+        <input
+          id="password-input"
+          type="password"
+          v-model="credentials.password"
+          p3
+          rounded
+          my1
+          border="1px solid $color-border"
+        />
+        <small
+          text="red center"
+          m="t--1"
+          v-if="showValidationErrors && !passwordIsValid"
+        >
+          Heslo musí mít alespoň 8 znaků
+        </small>
+      </div>
+      <div flex py2 my2>
+        <input
+          type="checkbox"
+          id="remember-me"
+          v-model="rememberMe"
+          :disabled="credentials.email === ''"
+        />
+        <label for="remember-me" ml2>Remember me</label>
+      </div>
+      <button
+        type="submit"
+        w-full
+        rounded
+        bg-sky-700
+        text="white md"
+        font-bold
+        border-none
+        p4
+      >
+        Odeslat
+      </button>
     </form>
   </div>
 </template>
