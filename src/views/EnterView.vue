@@ -12,7 +12,7 @@
             : "Pro přihlášení zadejte své přihlašovací údaje"
         }}
       </h2>
-      <div flex="~ col" mb3>
+      <div flex="~ col" mb3 relative>
         <label for="email-input" font-bold>Email</label>
 
         <input
@@ -34,15 +34,25 @@
       </div>
       <div flex="~ col" mb3>
         <label for="password-input" font-bold>Heslo</label>
-        <input
-          id="password-input"
-          type="password"
-          v-model="credentials.password"
-          p3
-          rounded
-          my1
-          border="1px solid $color-border"
-        />
+
+        <div flex relative>
+          <input
+            id="password-input"
+            :type="showPassword ? 'text' : 'password'"
+            v-model="credentials.password"
+            font-mono
+            p3
+            rounded
+            my1
+            w-full
+            border="1px solid $color-border"
+          />
+          <div absolute right-0 top-1 p3 flex text-gray-700 text-lg>
+            <EyeOutline v-if="!showPassword" @click="showPassword = true" />
+            <EyeOffOutline v-else @click="showPassword = false" />
+          </div>
+        </div>
+
         <small
           text="red center"
           m="t--1"
@@ -77,7 +87,7 @@
 
     <p mt8>
       {{ formType === "signUp" ? "Nemáte účet? " : "Máte již účet? " }}
-      <a text-teal-500 @click="changeFormType">{{
+      <a text-teal-500 tabIndex="0" @click="changeFormType">{{
         formType === "signUp" ? "Zaregistrujte se" : "Přihlašte se"
       }}</a>
     </p>
@@ -89,6 +99,8 @@ import { useUserStore } from "@/stores/user";
 import { computed, reactive, ref } from "vue";
 import { useRouter } from "vue-router";
 import apiService from "@/services/api";
+import EyeOutline from "@/components/icons/EyeOutline.vue";
+import EyeOffOutline from "../components/icons/EyeOffOutline.vue";
 
 const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
 
@@ -108,6 +120,7 @@ const credentials = reactive<Credentials>({
 const rememberMe = ref<boolean>(false);
 const showValidationErrors = ref<boolean>(false);
 const formType = ref<FormType>("signUp");
+const showPassword = ref<boolean>(false);
 
 const emailIsValid = computed(() => {
   return credentials.email.length > 0 && emailRegex.test(credentials.email);
