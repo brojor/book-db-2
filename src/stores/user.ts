@@ -19,7 +19,8 @@ export const useUserStore = defineStore({
     },
     logout() {
       this.token = "";
-      window.location.href = "/enter";
+      localStorage.clear();
+      window.location.reload();
     },
   },
 });
