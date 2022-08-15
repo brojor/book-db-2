@@ -2,22 +2,21 @@
   <div bg="$color-background-soft" w-full h-screen p-6 flex="~ col">
     <h1 font="bold" text-2xl text-center>Vítejte v databázi knih</h1>
     <p text-center m="y-3 x-auto" w="5/6">
-      Na místě, kde máte o své sbírce knih dokonalý přehled.
+      Na místě, kde máte dokonalý přehled o své sbírce knih.
     </p>
     <form mt16 @submit.prevent="handleSubmit">
-      <h2 text-sm my2>
+      <h2 text-base font-bold text-center mb4>
         {{
           formType === "signUp"
-            ? "Pro přihlášení zadejte své přihlašovací údaje"
-            : "Pro registraci zadejte svůj email a zvolte heslo:"
+            ? "Pro registraci zadejte svůj email a zvolte heslo:"
+            : "Pro přihlášení zadejte své přihlašovací údaje"
         }}
       </h2>
       <div flex="~ col" mb3 relative>
         <label for="email-input" font-bold>Email</label>
-
         <input
           id="email-input"
-          type="text"
+          type="email"
           v-model="credentials.email"
           p3
           rounded
@@ -27,20 +26,20 @@
         <small
           text="red center"
           m="t--1"
-          v-if="showValidationErrors && !emailIsValid"
+          v-if="showValidationErrors && !emailIsValid && formType === 'signUp'"
         >
           Zadejte prosím platný email
         </small>
       </div>
       <div flex="~ col" mb3>
         <label for="password-input" font-bold>Heslo</label>
-
         <div flex relative>
           <input
             id="password-input"
             :type="showPassword ? 'text' : 'password'"
             v-model="credentials.password"
             font-mono
+            tracking-wider
             p3
             rounded
             my1
@@ -52,22 +51,25 @@
             <EyeOffOutline v-else @click="showPassword = false" />
           </div>
         </div>
-
         <small
           text="red center"
           m="t--1"
-          v-if="showValidationErrors && !passwordIsValid"
+          v-if="
+            showValidationErrors && !passwordIsValid && formType === 'signUp'
+          "
         >
           Heslo musí mít alespoň 8 znaků
         </small>
       </div>
-      <div flex py2 mb3>
+      <div flex py2 mb3 items-center>
         <input
           type="checkbox"
           id="remember-me"
           v-model="rememberMe"
           :disabled="credentials.email === ''"
           accent-teal-600
+          h15px
+          w15px
         />
         <label for="remember-me" ml2>Pamatuj si mě</label>
       </div>
@@ -81,14 +83,13 @@
         border-none
         p4
       >
-        {{ formType === "signUp" ? "Přihlásit se" : "Vytvořit účet" }}
+        {{ formType === "signUp" ? "Vytvořit účet" : "Přihlásit se" }}
       </button>
     </form>
-
     <p mt8>
-      {{ formType === "signUp" ? "Nemáte účet? " : "Máte již účet? " }}
+      {{ formType === "signUp" ? "Máte již účet?" : "Nemáte účet? " }}
       <a text-teal-500 tabIndex="0" @click="changeFormType">{{
-        formType === "signUp" ? "Zaregistrujte se" : "Přihlašte se"
+        formType === "signUp" ? "Přihlašte se" : "Zaregistrujte se"
       }}</a>
     </p>
   </div>
@@ -100,7 +101,7 @@ import { computed, reactive, ref } from "vue";
 import { useRouter } from "vue-router";
 import apiService from "@/services/api";
 import EyeOutline from "@/components/icons/EyeOutline.vue";
-import EyeOffOutline from "../components/icons/EyeOffOutline.vue";
+import EyeOffOutline from "@/components/icons/EyeOffOutline.vue";
 
 const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
 

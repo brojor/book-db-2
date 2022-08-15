@@ -59,6 +59,11 @@
   font-weight: normal;
 }
 
+*:focus-visible {
+  outline-color: #14b8a6;
+  outline-style: solid;
+}
+
 body {
   min-height: 100vh;
   color: var(--color-text);
@@ -71,8 +76,13 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
 }
 
 h1 {
   color: var(--color-heading);
+}
+
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px rgb(255, 255, 255) inset;
 }
