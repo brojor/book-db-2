@@ -1,6 +1,12 @@
 <template>
   <div>
     <h1>This is enter page</h1>
+    <p v-if="showValidationErrors && !emailIsValid">
+      Zadejte prosím platný email
+    </p>
+    <p v-if="showValidationErrors && !passwordIsValid">
+      Heslo musí mít alespoň 8 znaků
+    </p>
     <form @submit.prevent="handleSubmit">
       <input type="text" v-model="credentials.email" placeholder="Email" />
       <input
@@ -22,9 +28,11 @@
 
 <script setup lang="ts">
 import { useUserStore } from "@/stores/user";
-import { reactive, ref } from "vue";
+import { computed, reactive, ref } from "vue";
 import { useRouter } from "vue-router";
 import apiService from "@/services/api";
+
+const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
 
 interface Credentials {
   email: string;
@@ -39,8 +47,23 @@ const credentials = reactive<Credentials>({
   password: "",
 });
 const rememberMe = ref<boolean>(false);
+const showValidationErrors = ref<boolean>(false);
+
+const emailIsValid = computed(() => {
+  return credentials.email.length > 0 && emailRegex.test(credentials.email);
+});
+const passwordIsValid = computed(() => {
+  return credentials.password.length > 8;
+});
 
 const handleSubmit = async () => {
+  if (emailIsValid.value && passwordIsValid.value) {
+    login();
+  } else {
+    showValidationErrors.value = true;
+  }
+};
+const login = async () => {
   try {
     const response = await apiService.post("/register", credentials);
     const token = response.data.token;
