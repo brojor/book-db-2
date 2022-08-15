@@ -4,7 +4,7 @@
     <p text-center m="y-3 x-auto" w="5/6">
       Na místě, kde máte o své sbírce knih dokonalý přehled.
     </p>
-    <form my16 @submit.prevent="handleSubmit">
+    <form mt16 @submit.prevent="handleSubmit">
       <h2 text-sm my2>
         {{
           formType === "signUp"
@@ -57,6 +57,7 @@
           id="remember-me"
           v-model="rememberMe"
           :disabled="credentials.email === ''"
+          accent-teal-600
         />
         <label for="remember-me" ml2>Pamatuj si mě</label>
       </div>
