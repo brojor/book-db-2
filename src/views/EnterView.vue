@@ -8,8 +8,8 @@
       <h2 text-sm my2>
         {{
           formType === "signUp"
-            ? "Pro registraci zadejte svůj email a zvolte heslo:"
-            : "Pro přihlášení zadejte své přihlašovací údaje"
+            ? "Pro přihlášení zadejte své přihlašovací údaje"
+            : "Pro registraci zadejte svůj email a zvolte heslo:"
         }}
       </h2>
       <div flex="~ col" mb3 relative>
