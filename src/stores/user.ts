@@ -1,3 +1,4 @@
+import apiService from '@/services/api';
 import { defineStore } from "pinia";
 
 export const useUserStore = defineStore({
@@ -9,8 +10,9 @@ export const useUserStore = defineStore({
     isAuthenticated: (state) => !!state.token,
   },
   actions: {
-    async login() {
-      this.token = "123";
+    setToken(token: string) {
+      this.token = token;
+      apiService.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     },
     logout() {
       this.token = "";
