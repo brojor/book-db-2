@@ -4,7 +4,14 @@
     <p text-center m="y-3 x-auto" w="5/6">
       Na místě, kde máte o své sbírce knih dokonalý přehled.
     </p>
-    <form @submit.prevent="handleSubmit">
+    <form my16 @submit.prevent="handleSubmit">
+      <h2 text-sm my2>
+        {{
+          formType === "signUp"
+            ? "Pro registraci zadejte svůj email a zvolte heslo:"
+            : "Pro přihlášení zadejte své přihlašovací údaje"
+        }}
+      </h2>
       <div flex="~ col" mb3>
         <label for="email-input" font-bold>Email</label>
 
@@ -44,28 +51,35 @@
           Heslo musí mít alespoň 8 znaků
         </small>
       </div>
-      <div flex py2 my2>
+      <div flex py2 mb3>
         <input
           type="checkbox"
           id="remember-me"
           v-model="rememberMe"
           :disabled="credentials.email === ''"
         />
-        <label for="remember-me" ml2>Remember me</label>
+        <label for="remember-me" ml2>Pamatuj si mě</label>
       </div>
       <button
         type="submit"
         w-full
         rounded
-        bg-sky-700
+        bg-teal-700
         text="white md"
         font-bold
         border-none
         p4
       >
-        Odeslat
+        {{ formType === "signUp" ? "Přihlásit se" : "Vytvořit účet" }}
       </button>
     </form>
+
+    <p mt8>
+      {{ formType === "signUp" ? "Nemáte účet? " : "Máte již účet? " }}
+      <a text-teal-500 @click="changeFormType">{{
+        formType === "signUp" ? "Zaregistrujte se" : "Přihlašte se"
+      }}</a>
+    </p>
   </div>
 </template>
 
@@ -81,6 +95,7 @@ interface Credentials {
   email: string;
   password: string;
 }
+type FormType = "signUp" | "login";
 
 const user = useUserStore();
 const router = useRouter();
@@ -91,6 +106,7 @@ const credentials = reactive<Credentials>({
 });
 const rememberMe = ref<boolean>(false);
 const showValidationErrors = ref<boolean>(false);
+const formType = ref<FormType>("signUp");
 
 const emailIsValid = computed(() => {
   return credentials.email.length > 0 && emailRegex.test(credentials.email);
@@ -98,6 +114,10 @@ const emailIsValid = computed(() => {
 const passwordIsValid = computed(() => {
   return credentials.password.length > 8;
 });
+
+const changeFormType = () => {
+  formType.value = formType.value === "signUp" ? "login" : "signUp";
+};
 
 const handleSubmit = async () => {
   if (emailIsValid.value && passwordIsValid.value) {
