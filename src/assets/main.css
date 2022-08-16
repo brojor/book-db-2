@@ -1,7 +1,12 @@
 @import "./base.css";
 
 #app {
-    height: 100vh;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+
 }
 
 @media (min-width: 640px) {
