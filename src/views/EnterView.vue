@@ -7,7 +7,7 @@
     <form mt16 @submit.prevent="handleSubmit">
       <h2 text-base font-bold text-center mb4>
         {{
-          formType === "signUp"
+          formType === "register"
             ? "Pro registraci zadejte svůj email a zvolte heslo:"
             : "Pro přihlášení zadejte své přihlašovací údaje"
         }}
@@ -26,7 +26,9 @@
         <small
           text="red center"
           m="t--1"
-          v-if="showValidationErrors && !emailIsValid && formType === 'signUp'"
+          v-if="
+            showValidationErrors && !emailIsValid && formType === 'register'
+          "
         >
           Zadejte prosím platný email
         </small>
@@ -55,7 +57,7 @@
           text="red center"
           m="t--1"
           v-if="
-            showValidationErrors && !passwordIsValid && formType === 'signUp'
+            showValidationErrors && !passwordIsValid && formType === 'register'
           "
         >
           Heslo musí mít alespoň 8 znaků
@@ -83,13 +85,13 @@
         border-none
         p4
       >
-        {{ formType === "signUp" ? "Vytvořit účet" : "Přihlásit se" }}
+        {{ formType === "register" ? "Vytvořit účet" : "Přihlásit se" }}
       </button>
     </form>
     <p mt8>
-      {{ formType === "signUp" ? "Máte již účet?" : "Nemáte účet? " }}
+      {{ formType === "register" ? "Máte již účet?" : "Nemáte účet? " }}
       <a text-teal-500 tabIndex="0" @click="changeFormType">{{
-        formType === "signUp" ? "Přihlašte se" : "Zaregistrujte se"
+        formType === "register" ? "Přihlašte se" : "Zaregistrujte se"
       }}</a>
     </p>
   </div>
@@ -109,7 +111,7 @@ interface Credentials {
   email: string;
   password: string;
 }
-type FormType = "signUp" | "login";
+type FormType = "register" | "login";
 
 const user = useUserStore();
 const router = useRouter();
@@ -120,7 +122,7 @@ const credentials = reactive<Credentials>({
 });
 const rememberMe = ref<boolean>(false);
 const showValidationErrors = ref<boolean>(false);
-const formType = ref<FormType>("signUp");
+const formType = ref<FormType>("register");
 const showPassword = ref<boolean>(false);
 
 const emailIsValid = computed(() => {
@@ -131,7 +133,7 @@ const passwordIsValid = computed(() => {
 });
 
 const changeFormType = () => {
-  formType.value = formType.value === "signUp" ? "login" : "signUp";
+  formType.value = formType.value === "register" ? "login" : "register";
 };
 
 const handleSubmit = async () => {
@@ -143,7 +145,7 @@ const handleSubmit = async () => {
 };
 const login = async () => {
   try {
-    const response = await apiService.post("/register", credentials);
+    const response = await apiService.post(`/${formType.value}`, credentials);
     const token = response.data.token;
     user.setToken(token, { rememberMe: rememberMe.value });
     router.push("/");
