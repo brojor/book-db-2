@@ -2,7 +2,8 @@ import apiService from "@/services/api";
 import { defineStore } from "pinia";
 
 interface Book {
-  author: string;
+  author_name: string;
+  author_id: number;
   id: number;
   title: string;
   created_at: string;

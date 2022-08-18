@@ -1,6 +1,12 @@
 <template>
-  <div grow border="1px solid pink">
-    <div v-for="author in collectionStore.authors" :key="author.id" ml4 mb3>
+  <div grow overflow-scroll border="1px solid pink">
+    <div
+      v-for="author in collectionStore.authors"
+      :key="author.id"
+      ml4
+      mb3
+      @click="$router.push(`/author/${author.id}`)"
+    >
       <h2 text-sm font-bold>{{ author.firstName }} {{ author.lastName }}</h2>
       <p text-xs>Počet knih: {{ author.numOfBooks }}</p>
     </div>
