@@ -1,5 +1,5 @@
 <template>
-  <div grow overflow-scroll border="1px solid pink">
+  <div grow overflow-scroll>
     <div
       v-for="author in collectionStore.authors"
       :key="author.id"

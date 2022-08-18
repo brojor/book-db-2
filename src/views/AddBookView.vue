@@ -1,5 +1,5 @@
 <template>
-  <div p4>
+  <div p4 grow>
     <h1 text-2xl m10 text-center>Přidání nové knihy</h1>
     <form @submit.prevent="onSubmit">
       <div flex="~ col">

@@ -1,6 +1,6 @@
 <template>
   <div grow overflow-scroll>
-    <div v-for="book in books" :key="book.id">
+    <div v-for="book in books" :key="book.id" ml4 mb3>
       <h3 text-sm font-bold>{{ book.title }}</h3>
       <p text-xs>{{ book.author_name }}</p>
     </div>

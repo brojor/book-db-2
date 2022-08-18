@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { RouterView } from "vue-router";
 import { useUserStore } from "@/stores/user";
+import AddBook from "@/components/icons/AddBook.vue";
 
 const user = useUserStore();
 
@@ -27,7 +28,24 @@ if (token) {
     flex
     justify-around
   >
-    <router-link to="/" text-white>books</router-link>
-    <router-link to="/authors" text-white>authors</router-link>
+    <router-link to="/" text-white p2 no-underline>Seznam knih</router-link>
+    <router-link to="/authors" text-white p2 no-underline>Autoři</router-link>
   </footer>
+  <router-link
+    v-if="user.isAuthenticated"
+    to="/add-book"
+    absolute
+    bottom-16
+    right-6
+    bg-teal-700
+    text-white
+    rounded-full
+    h-14
+    w-14
+    flex
+    items-center
+    justify-center
+  >
+    <AddBook text-3xl />
+  </router-link>
 </template>
