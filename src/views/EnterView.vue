@@ -151,6 +151,7 @@ const login = async () => {
     const token = response.data.token;
     user.setToken(token, { rememberMe: rememberMe.value });
     collectionStore.getBooks();
+    collectionStore.getAuthors();
     router.push("/");
   } catch (error) {
     console.error(error);

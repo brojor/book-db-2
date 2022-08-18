@@ -20,7 +20,7 @@ export const useUserStore = defineStore({
     logout() {
       this.token = "";
       localStorage.clear();
-      window.location.reload();
+      window.location.replace("/");
     },
   },
 });
