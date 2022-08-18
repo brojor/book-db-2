@@ -104,6 +104,7 @@ import { useRouter } from "vue-router";
 import apiService from "@/services/api";
 import EyeOutline from "@/components/icons/EyeOutline.vue";
 import EyeOffOutline from "@/components/icons/EyeOffOutline.vue";
+import { useCollectionStore } from "@/stores/collection";
 
 const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
 
@@ -114,6 +115,7 @@ interface Credentials {
 type FormType = "register" | "login";
 
 const user = useUserStore();
+const collectionStore = useCollectionStore();
 const router = useRouter();
 
 const credentials = reactive<Credentials>({
@@ -148,6 +150,7 @@ const login = async () => {
     const response = await apiService.post(`/${formType.value}`, credentials);
     const token = response.data.token;
     user.setToken(token, { rememberMe: rememberMe.value });
+    collectionStore.getBooks();
     router.push("/");
   } catch (error) {
     console.error(error);

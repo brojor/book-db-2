@@ -1,24 +1,14 @@
 <script setup lang="ts">
-import apiService from "@/services/api";
+import { useCollectionStore } from "@/stores/collection";
 import { useUserStore } from "@/stores/user";
-import { computed, ref } from "vue";
+import { computed } from "vue";
 import AddBook from "../components/icons/AddBook.vue";
 
-interface Book {
-  author: string;
-  id: number;
-  title: string;
-  created_at: string;
-}
+const collectionStore = useCollectionStore();
 
-const books = ref<Book[]>([]);
 const sortedBooks = computed(() => {
-  const list = [...books.value];
+  const list = [...collectionStore.books];
   return list.sort((a, b) => a.title.localeCompare(b.title));
-});
-
-apiService.get("/books").then((response) => {
-  books.value = response.data;
 });
 
 const user = useUserStore();
