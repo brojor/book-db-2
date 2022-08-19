@@ -1,9 +1,12 @@
 <template>
   <div grow overflow-scroll>
-    <div v-for="book in books" :key="book.id" ml4 mb3>
-      <h3 text-sm font-bold>{{ book.title }}</h3>
-      <p text-xs>{{ book.author_name }}</p>
-    </div>
+    <ListItem
+      v-for="book in books"
+      :key="book.id"
+      :title="book.title"
+      :subtitle="book.author_name"
+      icon="book"
+    />
   </div>
 </template>
 
@@ -11,6 +14,7 @@
 import { useRoute } from "vue-router";
 import { useCollectionStore } from "@/stores/collection";
 import { computed } from "vue";
+import ListItem from "../components/ListItem.vue";
 
 const collectionStore = useCollectionStore();
 

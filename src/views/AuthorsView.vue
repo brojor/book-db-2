@@ -1,20 +1,19 @@
 <template>
   <div grow overflow-scroll>
-    <div
+    <ListItem
       v-for="author in collectionStore.authors"
       :key="author.id"
-      ml4
-      mb3
       @click="$router.push(`/author/${author.id}`)"
-    >
-      <h2 text-sm font-bold>{{ author.firstName }} {{ author.lastName }}</h2>
-      <p text-xs>Počet knih: {{ author.numOfBooks }}</p>
-    </div>
+      :title="`${author.firstName} ${author.lastName}`"
+      :subtitle="`Počet knih: ${author.numOfBooks}`"
+      icon="author"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
 import { useCollectionStore } from "@/stores/collection";
+import ListItem from "../components/ListItem.vue";
 
 const collectionStore = useCollectionStore();
 </script>
