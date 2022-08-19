@@ -9,6 +9,7 @@
       items-center
       justify-center
       text-2xl
+      text-teal
     >
       <BookIcon v-if="icon === 'book'" />
       <PersonIcon v-if="icon === 'author'" />

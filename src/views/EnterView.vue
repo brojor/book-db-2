@@ -124,7 +124,7 @@ const credentials = reactive<Credentials>({
 });
 const rememberMe = ref<boolean>(false);
 const showValidationErrors = ref<boolean>(false);
-const formType = ref<FormType>("register");
+const formType = ref<FormType>("login");
 const showPassword = ref<boolean>(false);
 
 const emailIsValid = computed(() => {

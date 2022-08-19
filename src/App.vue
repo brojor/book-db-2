@@ -22,7 +22,7 @@ if (token) {
     flex
     justify-around
   >
-    <router-link to="/" text-white p2 no-underline>Seznam knih</router-link>
+    <router-link to="/" text-white p2 no-underline>Knihy</router-link>
     <router-link to="/authors" text-white p2 no-underline>Autoři</router-link>
   </footer>
   <router-link

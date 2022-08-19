@@ -17,7 +17,7 @@ interface Author {
 }
 
 export const useCollectionStore = defineStore({
-  id: "books",
+  id: "collection",
   state: () => ({
     books: [] as Book[],
     authors: [] as Author[],
