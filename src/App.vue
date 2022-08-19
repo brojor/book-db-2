@@ -2,12 +2,9 @@
 import { RouterView } from "vue-router";
 import { useUserStore } from "@/stores/user";
 import AddBook from "@/components/icons/AddBook.vue";
+import MainHeader from "./components/MainHeader.vue";
 
 const user = useUserStore();
-
-const handleLogout = () => {
-  user.logout();
-};
 
 const token = localStorage.getItem("token");
 if (token) {
@@ -16,10 +13,7 @@ if (token) {
 </script>
 
 <template>
-  <header v-if="user.isAuthenticated" flex>
-    <h1>This is header</h1>
-    <button @click="handleLogout" ml-auto>Logout</button>
-  </header>
+  <MainHeader :show="user.isAuthenticated" />
   <RouterView />
   <footer
     v-if="user.isAuthenticated"
