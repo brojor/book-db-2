@@ -1,10 +1,16 @@
 <script setup lang="ts">
-import { RouterView } from "vue-router";
+import { RouterView, useRoute } from "vue-router";
 import { useUserStore } from "@/stores/user";
 import AddBook from "@/components/icons/AddBook.vue";
 import MainHeader from "./components/MainHeader.vue";
+import { computed } from "@vue/reactivity";
 
 const user = useUserStore();
+const route = useRoute();
+
+const isFullscreen = computed(
+  () => route.name == "addBook" || !user.isAuthenticated
+);
 
 const token = localStorage.getItem("token");
 if (token) {
@@ -13,10 +19,10 @@ if (token) {
 </script>
 
 <template>
-  <MainHeader :show="user.isAuthenticated" />
+  <MainHeader :show="!isFullscreen" />
   <RouterView />
   <footer
-    v-if="user.isAuthenticated"
+    v-if="!isFullscreen"
     text-center
     bg="$color-background"
     flex
@@ -36,7 +42,7 @@ if (token) {
     >
   </footer>
   <router-link
-    v-if="user.isAuthenticated"
+    v-if="!isFullscreen"
     to="/add-book"
     absolute
     bottom-16
@@ -53,4 +59,3 @@ if (token) {
     <AddBook text-3xl />
   </router-link>
 </template>
-
