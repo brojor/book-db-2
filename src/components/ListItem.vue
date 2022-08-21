@@ -2,7 +2,7 @@
   <div ml4 mb2 flex items-center gap3>
     <div
       rounded-full
-      bg-zinc-700
+      bg="$color-background-mute"
       h="48px"
       w="48px"
       flex

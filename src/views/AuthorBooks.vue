@@ -1,5 +1,5 @@
 <template>
-  <div grow overflow-scroll>
+  <div grow overflow-scroll bg="$color-background-soft">
     <ListItem
       v-for="book in filtredBooks"
       :key="book.id"

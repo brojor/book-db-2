@@ -2,18 +2,18 @@
 :root {
   --vt-c-white: #ffffff;
   --vt-c-white-soft: #f8f8f8;
-  --vt-c-white-mute: #f2f2f2;
+  --vt-c-white-mute: #e6e6e6;
 
   --vt-c-black: #181818;
-  --vt-c-black-soft: #222222;
-  --vt-c-black-mute: #282828;
+  --vt-c-black-soft: #202020;
+  --vt-c-black-mute: #2e2e2e;
 
   --vt-c-indigo: #2c3e50;
 
-  --vt-c-divider-light-1: rgba(60, 60, 60, 0.29);
-  --vt-c-divider-light-2: rgba(60, 60, 60, 0.12);
-  --vt-c-divider-dark-1: rgba(84, 84, 84, 0.65);
-  --vt-c-divider-dark-2: rgba(84, 84, 84, 0.48);
+  --vt-c-divider-light-1: rgba(48, 48, 48, 0.29);
+  --vt-c-divider-light-2: rgba(60, 60, 60, 0.431);
+  --vt-c-divider-dark-1: rgba(124, 124, 124, 0.65);
+  --vt-c-divider-dark-2: rgba(160, 160, 160, 0.48);
 
   --vt-c-text-light-1: var(--vt-c-indigo);
   --vt-c-text-light-2: rgba(60, 60, 60, 0.66);
@@ -33,6 +33,8 @@
   --color-heading: var(--vt-c-text-light-1);
   --color-text: var(--vt-c-text-light-1);
 
+  --input-background: var(--vt-c-white);
+
   --section-gap: 160px;
 }
 
@@ -47,6 +49,8 @@
 
     --color-heading: var(--vt-c-text-dark-1);
     --color-text: var(--vt-c-text-dark-2);
+
+    --input-background: var(--vt-c-black-soft);
   }
 }
 
@@ -90,4 +94,23 @@ h6 {
 
 input:-webkit-autofill {
   -webkit-box-shadow: 0 0 0px 1000px rgb(255, 255, 255) inset;
+}
+
+
+
+.input-base {
+  background-color: var(--input-background);
+  color: var(--color-heading);
+  border: 1px solid var(--color-border);
+  font-weight: medium;
+}
+
+.input-base::placeholder {
+  color: var(--color-text);
+  font-weight: normal;
+}
+
+label {
+  color: var(--color-heading);
+  font-weight: medium;
 }

@@ -1,5 +1,5 @@
 <template>
-  <header v-if="show" flex relative>
+  <header v-if="show" flex relative bg="$color-background-soft">
     <input
       type="text"
       :placeholder="placeholder"
@@ -8,22 +8,21 @@
       pl13
       w-full
       rounded-full
-      mx3
-      my3
-      bg-zinc-800
-      un-placeholder="$color-text"
-      text-white
+      m3
+      bg="$color-background-mute"
+      un-placeholder="$color-text font-normal"
+      text="$color-heading"
+      font-medium
       border-none
       :value="searchbar.value"
       @input="handleInput"
     />
-    <SearchIcon absolute top-26px left-7 text-2xl text-zinc-300 rounded-full />
+    <SearchIcon absolute top-26px left-7 text="2xl $color-text" rounded-full />
     <DotsVertical
       absolute
       top-26px
       right-7
-      text-2xl
-      text-zinc-300
+      text="2xl $color-text"
       @click="handleLogout"
     />
   </header>

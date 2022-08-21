@@ -18,12 +18,22 @@ if (token) {
   <footer
     v-if="user.isAuthenticated"
     text-center
-    bg="#2B2C2E"
+    bg="$color-background"
     flex
     justify-around
   >
-    <router-link to="/" text-white p2 no-underline>Knihy</router-link>
-    <router-link to="/authors" text-white p2 no-underline>Autoři</router-link>
+    <router-link to="/" class="text-$color-text" py2 px4 no-underline font-bold
+      >Knihy</router-link
+    >
+    <router-link
+      to="/authors"
+      class="text-$color-text"
+      py2
+      px4
+      no-underline
+      font-bold
+      >Autoři</router-link
+    >
   </footer>
   <router-link
     v-if="user.isAuthenticated"
@@ -43,3 +53,4 @@ if (token) {
     <AddBook text-3xl />
   </router-link>
 </template>
+

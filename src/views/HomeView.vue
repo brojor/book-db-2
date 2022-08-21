@@ -18,7 +18,7 @@ const filtredBooks = computed(() => {
 </script>
 
 <template>
-  <div grow overflow-scroll relative>
+  <div grow overflow-scroll relative bg="$color-background-soft">
     <ListItem
       v-for="book in filtredBooks"
       :key="book.id"
