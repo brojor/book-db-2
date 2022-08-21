@@ -71,6 +71,9 @@
 import apiService from "@/services/api";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+import { useCollectionStore } from "@/stores/collection";
+
+const collection = useCollectionStore();
 
 const router = useRouter();
 
@@ -91,7 +94,7 @@ const bookToAdd = ref<Book>({
 
 const onSubmit = async () => {
   console.log("add book", bookToAdd.value);
-  await apiService.post("/books", bookToAdd.value);
+  await collection.addBook(bookToAdd.value);
   router.push("/");
 };
 </script>

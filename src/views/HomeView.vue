@@ -23,7 +23,7 @@ const filtredBooks = computed(() => {
       v-for="book in filtredBooks"
       :key="book.id"
       :title="book.title"
-      :subtitle="book.author_name"
+      :subtitle="book.author.fullName"
       icon="book"
     />
   </div>

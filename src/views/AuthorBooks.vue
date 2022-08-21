@@ -4,7 +4,7 @@
       v-for="book in filtredBooks"
       :key="book.id"
       :title="book.title"
-      :subtitle="book.author_name"
+      :subtitle="book.author.fullName"
       icon="book"
     />
   </div>
@@ -26,7 +26,7 @@ const route = useRoute();
 const authorId = Number(route.params.id);
 
 const books = computed(() =>
-  collectionStore.books.filter((book) => book.author_id === authorId)
+  collectionStore.books.filter((book) => book.author.id === authorId)
 );
 
 const filtredBooks = computed(() => {

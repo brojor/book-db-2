@@ -2,25 +2,34 @@ import apiService from "@/services/api";
 import { defineStore } from "pinia";
 
 interface Book {
-  author_name: string;
-  author_id: number;
   id: number;
   title: string;
-  created_at: string;
+  author: {
+    id: number;
+    fullName: string;
+  };
 }
 
-interface Author {
+interface AuthorWithCount {
   id: number;
   firstName: string;
   lastName: string;
   numOfBooks: number;
 }
 
+interface BookToAdd {
+  title: string;
+  author: {
+    firstName: string;
+    lastName: string;
+  };
+}
+
 export const useCollectionStore = defineStore({
   id: "collection",
   state: () => ({
     books: [] as Book[],
-    authors: [] as Author[],
+    authors: [] as AuthorWithCount[],
   }),
   actions: {
     async getBooks() {
@@ -29,7 +38,12 @@ export const useCollectionStore = defineStore({
     },
     async getAuthors() {
       const response = await apiService.get("/authors");
-      this.authors = response.data as Author[];
+      this.authors = response.data as AuthorWithCount[];
+    },
+    async addBook(bookToAdd: BookToAdd) {
+      const response = await apiService.post("/books", bookToAdd);
+      this.books = response.data.books as Book[];
+      this.authors = response.data.authors as AuthorWithCount[];
     },
   },
 });
