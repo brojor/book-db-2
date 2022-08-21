@@ -3,7 +3,8 @@ import { RouterView, useRoute } from "vue-router";
 import { useUserStore } from "@/stores/user";
 import AddBook from "@/components/icons/AddBook.vue";
 import MainHeader from "./components/MainHeader.vue";
-import { computed } from "@vue/reactivity";
+import { computed } from "vue";
+import MainFooter from "./components/MainFooter.vue";
 
 const user = useUserStore();
 const route = useRoute();
@@ -21,26 +22,7 @@ if (token) {
 <template>
   <MainHeader :show="!isFullscreen" />
   <RouterView />
-  <footer
-    v-if="!isFullscreen"
-    text-center
-    bg="$color-background"
-    flex
-    justify-around
-  >
-    <router-link to="/" class="text-$color-text" py2 px4 no-underline font-bold
-      >Knihy</router-link
-    >
-    <router-link
-      to="/authors"
-      class="text-$color-text"
-      py2
-      px4
-      no-underline
-      font-bold
-      >Autoři</router-link
-    >
-  </footer>
+  <MainFooter v-if="!isFullscreen" />
   <router-link
     v-if="!isFullscreen"
     to="/add-book"
