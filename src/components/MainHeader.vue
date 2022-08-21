@@ -1,6 +1,7 @@
 <template>
   <header v-if="show" flex relative bg="$color-background-soft">
     <input
+      autocomplete="off"
       type="text"
       :placeholder="placeholder"
       pt-18px

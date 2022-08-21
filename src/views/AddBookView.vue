@@ -5,6 +5,7 @@
       <div flex="~ col">
         <label mb1 for="book-title">Titul:</label>
         <input
+          autocomplete="off"
           class="input-base"
           type="text"
           id="book-title"
@@ -18,6 +19,7 @@
         <label mb1 for="book-author">Autor:</label>
         <div flex gap-1>
           <input
+            autocomplete="off"
             class="input-base"
             type="text"
             id="book-author-first-name"
@@ -28,6 +30,7 @@
             placeholder="Jméno"
           />
           <input
+            autocomplete="off"
             class="input-base"
             type="text"
             id="book-author-last-name"
