@@ -63,6 +63,9 @@
           Heslo musí mít alespoň 8 znaků
         </small>
       </div>
+      <h3 v-if="loginError" text="red center sm">
+        Nesprávné přihlašovací údaje
+      </h3>
       <div flex py2 mb3 items-center>
         <input
           type="checkbox"
@@ -105,6 +108,7 @@ import apiService from "@/services/api";
 import EyeOutline from "@/components/icons/EyeOutline.vue";
 import EyeOffOutline from "@/components/icons/EyeOffOutline.vue";
 import { useCollectionStore } from "@/stores/collection";
+import type { AxiosError } from "axios";
 
 const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
 
@@ -126,6 +130,7 @@ const rememberMe = ref<boolean>(false);
 const showValidationErrors = ref<boolean>(false);
 const formType = ref<FormType>("login");
 const showPassword = ref<boolean>(false);
+const loginError = ref<boolean>(false);
 
 const emailIsValid = computed(() => {
   return credentials.email.length > 0 && emailRegex.test(credentials.email);
@@ -146,6 +151,7 @@ const handleSubmit = async () => {
   }
 };
 const login = async () => {
+  loginError.value = false;
   try {
     const response = await apiService.post(`/${formType.value}`, credentials);
     const token = response.data.token;
@@ -153,8 +159,10 @@ const login = async () => {
     collectionStore.getBooks();
     collectionStore.getAuthors();
     router.push("/");
-  } catch (error) {
-    console.error(error);
+  } catch (error: AxiosError) {
+    if (error.response.data.error === "Invalid credentials") {
+      loginError.value = true;
+    }
   }
 };
 </script>
